@@ -1,0 +1,51 @@
+javascript之url转义escape()、encodeURI()和decodeURI()
+　　我们可以知道：escape()除了 ASCII 字母、数字和特定的符号外，对传进来的字符串全部进行转义编码，因此如果想对URL编码，最好不要使用此方法。而encodeURI() 用于编码整个URI,因为URI中的合法字符都不会被编码转换。encodeURIComponent方法在编码单个URIComponent（指请求参数）应当是最常用的，它可以讲参数中的中文、特殊字符进行转义，而不会影响整个URL。
+
+　　请注意 encodeURIComponent() 函数 与 encodeURI() 函数的区别之处，前者假定它的参数是 URI 的一部分（比如协议、主机名、路径或查询字符串）。因此 encodeURIComponent() 函数将转义用于分隔 URI 各个部分的标点符号。
+
+一、encodeURI()　　//转义一个URI中的字符
+
+　　语法：encodeURI(uri)　　//这个在编码不同的AJAX请求时，解决中文乱码问题经常用到。
+
+        var str1 = "你好javascript";
+        var str2 = encodeURI(str1);
+        document.write(str2);   //输出%E4%BD%A0%E5%A5%BDjavascript 
+二、decodeURI()　　//解码一个URI中的字符
+
+　　语法：decodeURI(uri)
+
+        var str1 = "你好javascript";
+        var str2 = encodeURI(str1);
+        document.write(str2);   //输出%E4%BD%A0%E5%A5%BDjavascript
+        var str3 = decodeURI(str2);
+        document.write("<br/>" + str3)  //输出    你好javascript
+三、encodeURIComponent()　　//转义URI组件中的字符
+
+        var str1 = "你好javascript";
+        var str2 = encodeURIComponent(str1);
+        document.write(str2);   //输出%E4%BD%A0%E5%A5%BDjavascript
+四、decodeURIComponent()　　//解码一个URI组件中的字符
+
+        var str1 = "你好javascript";
+        var str2 = encodeURIComponent(str1);
+        document.write(str2);   //输出%E4%BD%A0%E5%A5%BDjavascript
+        var str3 = decodeURIComponent(str2);
+        document.write("<br/>" + str3)  //输出    你好javascript
+ 五、escape()　　//编码一个字符串
+
+　　语法：escape(value);
+
+        var str = "javascript 你好";
+        var str1 = escape(str);
+        document.write(str1);　　//javascript%20%u4F60%u597D
+ 六、unecape()　　//解码一个由escape()函数编码的字符串
+
+复制代码
+        window.onload = function () {
+            var str = "javascript 你好";
+            var str1 = escape(str);
+            document.write(str1); //javascript%20%u4F60%u597D
+            var str2 = unescape(str1);
+            alert(str2);　　　　　　//弹出 javascript你好
+        }
+复制代码
